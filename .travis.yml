@@ -1,10 +1,19 @@
-jobs:
-  include:
-    - os: linux
-      language: python
-      python:
-       - "3.8"
-      arch: amd64
-      dist: focal
-      script:
-        - python hello_world.py
+language: minimal
+
+branches:
+  only:
+    - main  # or 'master' if your default branch is master
+
+before_script:
+  - echo "Preparing deployment..."
+
+script:
+  - echo "Build step (if needed) goes here"
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # GitHub token from environment variables
+  keep_history: true
+  on:
+    branch: main  # Deploy only when push happens to main
